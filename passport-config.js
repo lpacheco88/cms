@@ -6,7 +6,6 @@ function initialize(passport, getUserByEmail, getUserById) {
   const authenticateUser = async (email, password, done) => {
     let query = User.findOne();
     query = query.regex("email", new RegExp(email, "i"));
-
     const user = await query.exec();
 
     if (user == null) {

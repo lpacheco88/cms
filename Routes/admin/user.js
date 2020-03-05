@@ -30,27 +30,70 @@ router.use(
 router.use(passport.initialize());
 router.use(passport.session());
 
+//Route index para login do usuario
 router.get("/", async (req, res) => {
   res.render("admin/user/login.ejs");
 });
 
-router.get("/login", async (req, res) => {
+//Route redirect de usuario validado pelo passport
+router.get("/login", checkAuthenticated, async (req, res) => {
+  const user = await User.findById(req.user);
   res.render("admin/user/index.ejs", {
-    logado:
-      "Enviou formulario de login, data: " + req.body.email + req.body.senha
+    logado: "Enviou formulario de login, data: " + user + req.user
   });
 });
 
+//Route post action para validar usuario via passport
 router.post(
-  "/login",
-  async (req, res) => {
-    res.redirect("/admin/login");
-  }
-  // passport.authenticate("local", {
-  //   successRedirect: "/admin",
-  //   failureRedirect: "/admin/error",
-  //   failureFlash: true
-  // })
+  "/user/login",
+  passport.authenticate("local", {
+    successRedirect: "/admin",
+    failureRedirect: "/admin/error",
+    failureFlash: true
+  })
 );
+
+//Logout route
+router.delete("/logout", (req, res) => {
+  req.logout();
+  res.redirect("/admin/login");
+});
+
+//********************************************************* */
+//***********************Register route******************** */
+// Router index register
+router.get("/register", async (req, res) => {
+  res.render("admin/user/new.ejs");
+});
+// Route post para novo usuario
+router.post("/register/new/user", async (req, res) => {
+  try {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const user = new User({
+      name: req.body.name,
+      usuario: req.body.usuario,
+      password: hashedPassword,
+      email: req.body.email,
+      cargo: req.body.cargo,
+      dataCadastro: req.body.dataCadastro
+    });
+
+    const newUser = await user.save();
+
+    res.redirect("/");
+  } catch (error) {
+    res.redirect("/admin/register");
+  }
+});
+
+//Check if user has loggedIn
+function checkAuthenticated(req, res, next) {
+  console.log("chegando no auth");
+  if (req.isAuthenticated()) {
+    return next();
+  }
+
+  res.redirect("/admin/login");
+}
 
 module.exports = router;
