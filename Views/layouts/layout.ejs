@@ -61,13 +61,8 @@
   </head>
 
   <body>
-    <div class="container">
-      <%- include('../partials/_header.ejs')%>
-
-      <div class="inner-container">
-        <%- include('../partials/_errorMessage.ejs')%> <%- body%> <%-
-        include('../partials/_footer.ejs')%>
-      </div>
-    </div>
+    <%- include('../partials/_header.ejs')%> <%-
+    include('../partials/_errorMessage.ejs')%> <%- body%> <%-
+    include('../partials/_footer.ejs')%>
   </body>
 </html>

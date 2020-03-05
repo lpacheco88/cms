@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 col-md-6">
+      <div class="card" style="width: 100%; height: 50%;">
+        <img
+          class="card-img-top"
+          src="/imgs/Graphic-Designing.jpg"
+          alt="Card image cap"
+        />
+      </div>
+    </div>
+
+    <div class="col-lg-5 offset-lg-1 col-md-6">
+      <form action="/admin/login" method="POST">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Endereço de e-mail</label>
+          <input
+            type="email"
+            class="form-login"
+            id="email"
+            name="email"
+            aria-describedby="emailHelp"
+            placeholder="Digite o e-mail"
+          />
+          <small id="emailHelp" class="form-text text-muted"
+            >E-mail enviado ao se cadastrar como administrador.</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="senha">Senha</label>
+          <input
+            type="password"
+            class="form-login"
+            name="senha"
+            id="senha"
+            placeholder="Senha"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </form>
+    </div>
+  </div>
+</div>

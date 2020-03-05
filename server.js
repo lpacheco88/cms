@@ -14,6 +14,7 @@ const db = mongoose.connection;
 
 //Routes
 const indexRouter = require("./Routes/index");
+const adminIndexRouter = require("./Routes/admin/user");
 
 //App setting and usage
 app.set("view engine", "ejs");
@@ -39,5 +40,6 @@ db.once("open", () => {
 
 //App Routes usage call
 app.use("/", indexRouter);
+app.use("/admin", adminIndexRouter);
 
 app.listen(process.env.PORT || 3000);

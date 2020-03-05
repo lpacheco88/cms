@@ -1,0 +1,8 @@
+@import "shared/_loginForm.css";
+@import "shared/_footer.css";
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
