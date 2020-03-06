@@ -32,17 +32,26 @@ router.use(passport.session());
 
 //Route index para login do usuario
 router.get("/", checkAuthenticated, async (req, res) => {
-  res.render(
-    "admin/user/index.ejs" +
-      {
-        logado: "Enviou formulario de login, data: " + req.user
-      }
-  );
+  const users = await User.find({})
+    .limit(3)
+    .exec();
+
+  res.render("admin/user/index.ejs", {
+    logado: true,
+    users: users,
+    showLogOff: true
+  });
+});
+
+router.get("/allUsers", checkAuthenticated, async (req, res) => {
+  const users = await User.find({});
+
+  res.render("admin/user/allUsers.ejs", { users: users, logado: true });
 });
 
 //Route redirect de usuario validado pelo passport
 router.get("/login", checkNotAuthenticated, async (req, res) => {
-  res.render("admin/user/login.ejs");
+  res.render("admin/user/login.ejs", { logado: false });
 });
 
 //Route post action para validar usuario via passport
@@ -56,9 +65,22 @@ router.post(
   })
 );
 
+// //Show page Route
+router.get("/crud/:userid", checkAuthenticated, async (req, res) => {
+  try {
+    const user = await User.findById(req.user);
+
+    res.render("admin/user/show", {
+      user: user,
+      logado: true
+    });
+  } catch (error) {}
+});
+
 //Logout route
 router.delete("/logout", (req, res) => {
   req.logout();
+
   res.redirect("/admin/login");
 });
 
@@ -66,7 +88,7 @@ router.delete("/logout", (req, res) => {
 //***********************Register route******************** */
 // Router index register
 router.get("/register", checkNotAuthenticated, async (req, res) => {
-  res.render("admin/user/new.ejs");
+  res.render("admin/user/new.ejs", { logado: false });
 });
 // Route post para novo usuario
 router.post("/register/new/user", checkNotAuthenticated, async (req, res) => {
@@ -91,18 +113,26 @@ router.post("/register/new/user", checkNotAuthenticated, async (req, res) => {
 
 //Check if user has loggedIn
 function checkAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
+  try {
+    if (req.isAuthenticated()) {
+      return next();
+    }
 
-  res.redirect("/admin/login");
+    res.redirect("/admin/login");
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function checkNotAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return res.redirect("/admin");
+  try {
+    if (req.isAuthenticated()) {
+      return res.redirect("/admin");
+    }
+    next();
+  } catch (error) {
+    console.log(error);
   }
-  next();
 }
 
 module.exports = router;
