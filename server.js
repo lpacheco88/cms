@@ -13,12 +13,12 @@ const fileUpload = require("express-fileupload");
 const db = mongoose.connection;
 
 //Routes
-const indexRouter = require("./Routes/index");
-const adminIndexRouter = require("./Routes/admin/user");
+const indexRouter = require("./routes/index");
+const adminIndexRouter = require("./routes/user");
 
 //App setting and usage
 app.set("view engine", "ejs");
-app.set("views", __dirname + "/Views");
+app.set("views", __dirname + "/views");
 app.set("layout", "layouts/layout");
 app.use(fileUpload());
 app.use(expressLayouts);

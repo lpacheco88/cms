@@ -4,12 +4,12 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 // Authecation module
 const passport = require("passport");
-const initializePassport = require("../../passport-config");
+const initializePassport = require("../passport-config");
 // Session using flash modules
 const flash = require("express-flash");
 const session = require("express-session");
 // User model
-const User = require("../../Model/Admin/User");
+const User = require("../model/User");
 
 initializePassport(
   passport,
@@ -31,24 +31,27 @@ router.use(passport.initialize());
 router.use(passport.session());
 
 //Route index para login do usuario
-router.get("/", async (req, res) => {
-  res.render("admin/user/login.ejs");
+router.get("/", checkAuthenticated, async (req, res) => {
+  res.render(
+    "admin/user/index.ejs" +
+      {
+        logado: "Enviou formulario de login, data: " + req.user
+      }
+  );
 });
 
 //Route redirect de usuario validado pelo passport
-router.get("/login", checkAuthenticated, async (req, res) => {
-  const user = await User.findById(req.user);
-  res.render("admin/user/index.ejs", {
-    logado: "Enviou formulario de login, data: " + user + req.user
-  });
+router.get("/login", checkNotAuthenticated, async (req, res) => {
+  res.render("admin/user/login.ejs");
 });
 
 //Route post action para validar usuario via passport
 router.post(
   "/user/login",
+  checkNotAuthenticated,
   passport.authenticate("local", {
     successRedirect: "/admin",
-    failureRedirect: "/admin/error",
+    failureRedirect: "/admin/login",
     failureFlash: true
   })
 );
@@ -62,11 +65,11 @@ router.delete("/logout", (req, res) => {
 //********************************************************* */
 //***********************Register route******************** */
 // Router index register
-router.get("/register", async (req, res) => {
+router.get("/register", checkNotAuthenticated, async (req, res) => {
   res.render("admin/user/new.ejs");
 });
 // Route post para novo usuario
-router.post("/register/new/user", async (req, res) => {
+router.post("/register/new/user", checkNotAuthenticated, async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = new User({
@@ -88,12 +91,18 @@ router.post("/register/new/user", async (req, res) => {
 
 //Check if user has loggedIn
 function checkAuthenticated(req, res, next) {
-  console.log("chegando no auth");
   if (req.isAuthenticated()) {
     return next();
   }
 
   res.redirect("/admin/login");
+}
+
+function checkNotAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return res.redirect("/admin");
+  }
+  next();
 }
 
 module.exports = router;
