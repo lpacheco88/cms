@@ -6,6 +6,7 @@
     id="name"
     name="name"
     placeholder="Seu nome completo"
+    value="<%= user.name%>"
   />
 </div>
 <div class="form-group mb-2">
@@ -15,6 +16,7 @@
     class="register-form-control"
     id="email"
     name="email"
+    value="<%= user.email%>"
     placeholder="email@example.com"
   />
 </div>
@@ -25,6 +27,7 @@
     class="register-form-control"
     id="password"
     name="password"
+    value="<%= user.password%>"
     placeholder="Password"
   />
 </div>
@@ -35,6 +38,7 @@
     class="register-form-control"
     id="usuario"
     name="usuario"
+    value="<%= user.usuario%>"
     placeholder="Usuario"
   />
 </div>
@@ -46,6 +50,7 @@
     class="register-form-control"
     id="cargo"
     name="cargo"
+    value="<%= user.cargo%>"
     placeholder="Cargo"
   />
 </div>
@@ -57,5 +62,6 @@
     class="register-form-control"
     name="dataCadastro"
     id="dataCadastro"
+    value="<%= user.dataCadastro == null ? '': user.dataCadastro.toISOString().split('T')[0] %>"
   />
 </div>

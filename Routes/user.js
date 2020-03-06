@@ -65,7 +65,7 @@ router.post(
   })
 );
 
-// //Show page Route
+//Show usuario Route
 router.get("/crud/:userid", checkAuthenticated, async (req, res) => {
   try {
     const user = await User.findById(req.user);
@@ -75,6 +75,38 @@ router.get("/crud/:userid", checkAuthenticated, async (req, res) => {
       logado: true
     });
   } catch (error) {}
+});
+
+//Edit usuario route
+router.get("/:id/edit", checkAuthenticated, async (req, res) => {
+  try {
+    const user = await User.findById(req.user);
+
+    res.render("admin/user/edit", {
+      user: user,
+      logado: true
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//Update usuario route
+router.put("/user/:id", checkAuthenticated, async (req, res) => {
+  let user;
+  try {
+    user = await User.findById(req.params.id);
+    user.name = req.body.name;
+    user.usuario = req.body.usuario;
+    user.email = req.body.email;
+    user.cargo = req.body.cargo;
+    user.dataCadastro = req.body.dataCadastro;
+    await user.save();
+
+    res.redirect(`/admin/`);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 //Logout route
@@ -88,7 +120,7 @@ router.delete("/logout", (req, res) => {
 //***********************Register route******************** */
 // Router index register
 router.get("/register", checkNotAuthenticated, async (req, res) => {
-  res.render("admin/user/new.ejs", { logado: false });
+  res.render("admin/user/new.ejs", { user: User(), logado: false });
 });
 // Route post para novo usuario
 router.post("/register/new/user", checkNotAuthenticated, async (req, res) => {
@@ -105,7 +137,7 @@ router.post("/register/new/user", checkNotAuthenticated, async (req, res) => {
 
     const newUser = await user.save();
 
-    res.redirect("/");
+    res.redirect("/admin");
   } catch (error) {
     res.redirect("/admin/register");
   }
