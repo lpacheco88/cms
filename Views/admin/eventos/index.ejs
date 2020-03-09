@@ -1,0 +1,12 @@
+<h5>Eventos index</h5>
+
+<% eventos.forEach(evento => { %>
+<p><a href="/admin/evento/evento/<%=evento.id%>"> <%= evento.name%></a></p>
+
+<% }) %>
+
+<a href="#"></a>
+<a href="#">Edit</a>
+<a href="/admin/evento/new">New</a>
+<a href="#">show</a>
+<a href="/admin/evento/alleventos">All eventos</a>

@@ -12,9 +12,14 @@ const mongoose = require("mongoose");
 const fileUpload = require("express-fileupload");
 const db = mongoose.connection;
 
-//Routes
-const indexRouter = require("./routes/index");
+//Admin routes
 const adminIndexRouter = require("./routes/user");
+const adminEventoRouter = require("./routes/adminEvento");
+const adminQuemSomosRouter = require("./routes/adminQuemSomos");
+//Public routes
+const indexRouter = require("./routes/index");
+const eventoRouter = require("./routes/evento");
+const quemSomosRouter = require("./routes/quemSomos");
 
 //App setting and usage
 app.set("view engine", "ejs");
@@ -39,7 +44,14 @@ db.once("open", () => {
 });
 
 //App Routes usage call
+
+//Public area
 app.use("/", indexRouter);
+app.use("/eventos", eventoRouter);
+app.use("/quemsomos", quemSomosRouter);
+//Admin area
 app.use("/admin", adminIndexRouter);
+app.use("/admin/evento", adminEventoRouter);
+app.use("/admin/quemsomos", adminQuemSomosRouter);
 
 app.listen(process.env.PORT || 3000);

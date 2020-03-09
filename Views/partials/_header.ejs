@@ -1,18 +1,27 @@
 <div
   class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow"
 >
-  <h5 class="my-0 mr-md-auto font-weight-normal">Company name</h5>
+  <h5 class="my-0 mr-md-auto font-weight-normal">
+    <a href="/">Logo cliente</a>
+  </h5>
   <nav class="my-2 my-md-0 mr-md-3">
-    <a class="p-2 text-dark" href="#">Features</a>
-    <a class="p-2 text-dark" href="#">Enterprise</a>
-    <a class="p-2 text-dark" href="#">Support</a>
-    <a class="p-2 text-dark" href="#">Pricing</a>
+    <a class="p-2 text-dark" href="#">Quem Somos</a>
+    <a class="p-2 text-dark" href="#">Unidades</a>
+    <a class="p-2 text-dark" href="#">Cardapio</a>
+    <a class="p-2 text-dark" href="#">Nosso produtos</a>
+    <a class="p-2 text-dark" href="#">Eventos</a>
+    <a class="p-2 text-dark" href="#">Contato</a>
   </nav>
 
   <% if (logado) {%>
-  <form action="/admin/logout?_method=DELETE" method="POST">
-    <button type="submit">Logout</button>
-  </form>
+  <nav class="my-2 my-md-0 mr-md-3">
+    <a class="p-2 text-white btn btn-primary" href="/admin/evento">Eventos</a>
+    <a class="p-2 text-white btn">
+      <form action="/admin/logout?_method=DELETE" method="POST">
+        <button class="btn btn-danger" type="submit">Sair</button>
+      </form>
+    </a>
+  </nav>
 
   <%}%>
 </div>

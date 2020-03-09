@@ -1,8 +1,18 @@
 <main role="main" class="container">
-  <p>all users</p>
+  <div>
+    <h4 style="border: 0.05rem black solid;">
+      Lista de usuarios ativos no sistema
+    </h4>
+  </div>
+
   <% users.forEach(user => { %>
   <div>
-    <h5><%=user.name%></h5>
+    <h5 style="border: 0.05rem black solid;">
+      <a href="/admin/crud/<%=user.id%>"><%=user.name%></a>
+    </h5>
   </div>
   <%})%>
+  <div>
+    <a href="/admin" class="btn btn-primary">Voltar</a>
+  </div>
 </main>
