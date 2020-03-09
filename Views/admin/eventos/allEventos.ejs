@@ -1,22 +1,26 @@
-<h5>todos os eventos</h5>
-<div class="row">
-  <% eventos.forEach(evento => { %>
-  <div class="col-4">
-    <p><a href="/admin/evento/evento/<%=evento.id%>"> <%= evento.name%></a></p>
-  </div>
-  <div class="col-4">
-    <p>
-      <a class="btn btn-warning" href="/admin/evento/evento/<%=evento.id%>">
-        Editar evento</a
-      >
-    </p>
-  </div>
-  <div class="col-4">
-    <p>
-      <%- include('../../partials/_deleteForm',
-      {url:`/admin/evento/remover/${evento.id}`})%>
-    </p>
-  </div>
+<main role="main" class="container">
+  <h5>todos os eventos</h5>
+  <div class="row">
+    <% eventos.forEach(evento => { %>
+    <div class="col-4">
+      <p>
+        <a href="/admin/evento/evento/<%=evento.id%>"> <%= evento.name%></a>
+      </p>
+    </div>
+    <div class="col-4">
+      <p>
+        <a class="btn btn-warning" href="/admin/evento/evento/<%=evento.id%>">
+          Editar evento</a
+        >
+      </p>
+    </div>
+    <div class="col-4">
+      <p>
+        <%- include('../../partials/_deleteForm',
+        {url:`/admin/evento/remover/${evento.id}`})%>
+      </p>
+    </div>
 
-  <% }) %>
-</div>
+    <% }) %>
+  </div>
+</main>

@@ -1,0 +1,9 @@
+<h1>ADMIN pagina inicial de quem somos</h1>
+
+<div>
+  <% quemSomos.forEach(quem => { %>
+  <p><a href="/admin/quemsomos/<%=quem.id%>/edit"><%=quem.title%></a></p>
+  <% }) %>
+</div>
+
+<a href="/admin/quemsomos/new" class="btn btn-primary">Adicionar Quem Somos</a>
