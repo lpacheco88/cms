@@ -16,6 +16,8 @@ const db = mongoose.connection;
 const adminIndexRouter = require("./routes/user");
 const adminEventoRouter = require("./routes/adminEvento");
 const adminQuemSomosRouter = require("./routes/adminQuemSomos");
+const adminUnidades = require("./routes/adminUnidades");
+const adminUnidadeLocation = require("./routes/adminUnidadeLocation");
 //Public routes
 const indexRouter = require("./routes/index");
 const eventoRouter = require("./routes/evento");
@@ -53,5 +55,7 @@ app.use("/quemsomos", quemSomosRouter);
 app.use("/admin", adminIndexRouter);
 app.use("/admin/evento", adminEventoRouter);
 app.use("/admin/quemsomos", adminQuemSomosRouter);
+app.use("/admin/unidades", adminUnidades);
+app.use("/admin/unidadeLocations", adminUnidadeLocation);
 
 app.listen(process.env.PORT || 3000);

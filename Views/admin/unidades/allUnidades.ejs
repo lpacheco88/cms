@@ -1,0 +1,31 @@
+<main role="main" class="container">
+  <h5>todos os eventos</h5>
+  <div class="row">
+    <% unidades.forEach(unidade => { %>
+    <div class="col-4">
+      <p>
+        <a href="/admin/unidades/unidade/<%=unidade.id%>/show">
+          <%= unidade.name%></a
+        >
+      </p>
+    </div>
+    <div class="col-4">
+      <p>
+        <a
+          class="btn btn-warning"
+          href="/admin/unidades/unidade/<%=unidade.id %>/edit"
+        >
+          Editar Unidade</a
+        >
+      </p>
+    </div>
+    <div class="col-4">
+      <p>
+        <%- include('../../partials/_deleteForm',
+        {url:`/admin/evento/remover/${unidade.id}`})%>
+      </p>
+    </div>
+
+    <% }) %>
+  </div>
+</main>

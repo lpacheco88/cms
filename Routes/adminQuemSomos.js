@@ -68,11 +68,11 @@ router.put("/edit/:id", async (req, res) => {
   let quemSomos;
   try {
     quemSomos = await QuemSomos.findById(req.params.id);
-    evento.title = req.body.title;
-    evento.description = req.body.description;
+    quemSomos.title = req.body.title;
+    quemSomos.description = req.body.description;
 
-    await evento.save();
-    res.redirect(`/admin/quemsomos/${evento.id}/edit`);
+    await quemSomos.save();
+    res.redirect(`/admin/quemsomos/${quemSomos.id}/edit`);
   } catch (error) {
     console.log(error);
   }
@@ -106,8 +106,6 @@ async function renderEditPage(res, quemSomos, hasError = false) {
 
 async function renderFormPage(res, quemSomos, form, hasError = false) {
   try {
-    console.log(form);
-    console.log(quemSomos);
     const params = {
       quemSomos: quemSomos,
       logado: true

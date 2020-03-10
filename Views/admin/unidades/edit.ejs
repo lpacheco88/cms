@@ -1,0 +1,10 @@
+<h2 class="page-header">Edit unidade</h2>
+
+<form
+  action="/admin/unidades/edit/<%= unidade.id%>/update?_method=PUT"
+  method="POST"
+>
+  <%- include('_form_fields') %>
+  <a href="/admin/unidades">Cancel</a>
+  <button type="submit">Update</button>
+</form>

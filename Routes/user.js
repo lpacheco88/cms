@@ -12,6 +12,7 @@ const session = require("express-session");
 const User = require("../model/User");
 //Admin area models
 const Evento = require("../model/Evento");
+const Unidade = require("../model/Unidade");
 
 initializePassport(
   passport,
@@ -42,10 +43,14 @@ router.get("/", checkAuthenticated, async (req, res) => {
     .limit(3)
     .exec();
 
+  const unidades = await Unidade.find({})
+    .limit(3)
+    .exec();
   res.render("admin/user/index.ejs", {
     logado: true,
     users: users,
     eventos: eventos,
+    unidades: unidades,
     showLogOff: true
   });
 });

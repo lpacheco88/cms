@@ -4,7 +4,10 @@ const QuemSomos = require("../model/QuemSomos");
 
 router.get("/", async (req, res) => {
   try {
-    res.render("index", { logado: false });
+    const quemSomos = await QuemSomos.find({})
+      .limit(1)
+      .exec();
+    res.render("quemsomos/index.ejs", { quemSomos: quemSomos, logado: false });
   } catch (err) {
     console.log("index" + err);
   }

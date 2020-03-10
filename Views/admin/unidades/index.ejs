@@ -1,0 +1,20 @@
+<h5>Index unidades admin</h5>
+
+<main role="main" class="container">
+  <h5>unidades index</h5>
+
+  <% unidades.forEach(unidade => { %>
+  <p>
+    <a href="/admin/unidades/unidade/<%=unidade.id%>/show">
+      <%= unidade.name%></a
+    >
+    <%- include('../../partials/_deleteForm',
+    {url:`/admin/unidades/remover/${unidade.id}`})%>
+  </p>
+
+  <% }) %>
+
+  <a href="/admin/unidades/new">New</a>
+  <br />
+  <a href="/admin/unidades/allunidades">Todas unidades</a>
+</main>
