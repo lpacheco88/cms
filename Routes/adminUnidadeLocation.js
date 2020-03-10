@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const UniLocation = require("../model/UnidadeLocation");
+const Unidade = require("../model/Unidade");
 
 router.get("/", async (req, res) => {
   try {
@@ -46,9 +47,10 @@ router.get("/new", async (req, res) => {
 
 // create unidade route
 router.post("/new/unidade", async (req, res) => {
+  console.log(req.body);
   const uniLocation = new UniLocation({
     title: req.body.title,
-    apiKey: req.body.apiKey,
+    apiKey: process.env.GOOGLE_MAPS_API_KEY,
     latitude: req.body.latitude,
     longitude: req.body.longitude,
     num_Telefone: req.body.num_Telefone,
@@ -64,7 +66,7 @@ router.post("/new/unidade", async (req, res) => {
     const newuniLocation = await uniLocation.save();
     res.redirect("/admin/unidadeLocations");
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     renderNewPage(res, uniLocation, true, error);
   }
 });
@@ -137,7 +139,9 @@ async function renderEditPage(res, uniLocation, hasError = false) {
 
 async function renderFormPage(res, uniLocation, form, hasError = false) {
   try {
+    const unidades = await Unidade.find({});
     const params = {
+      unidades: unidades,
       uniLocation: uniLocation,
       logado: true
     };

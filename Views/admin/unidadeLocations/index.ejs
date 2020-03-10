@@ -1,0 +1,14 @@
+<main role="main" class="container">
+  <h5>Eventos index</h5>
+
+  <% uniLocation.forEach(uni => { %>
+  <p>
+    <a href="/admin/evento/evento/<%=uni.id%>"> <%= uni.title%></a>
+  </p>
+
+  <% }) %>
+
+  <a href="/admin/unidadeLocations/new">New</a>
+  <Br />
+  <a href="/admin/evento/alleventos">Todas localizacoes</a>
+</main>

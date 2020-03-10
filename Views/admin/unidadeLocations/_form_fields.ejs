@@ -1,0 +1,93 @@
+<div>
+  <label>Title</label>
+  <input type="text" name="title" value="<%= uniLocation.title %>" />
+</div>
+<div>
+  <label>Unidade</label>
+  <select name="unidade">
+    <% unidades.forEach(unidade =>{ %> <% if (unidade.id ===
+    uniLocation.unidade){ %>
+    <option
+      selected
+      label="<%= unidade.name %>"
+      value="<%=unidade.id%>"
+    ></option>
+    <% }else{%>
+    <option label="<%= unidade.name %>" value="<%=unidade.id%>"></option>
+    <%}%> <%})%>
+  </select>
+</div>
+
+<div>
+  <label>Latitude</label>
+  <input
+    type="text"
+    name="latitude"
+    id="latitude"
+    value="<%= uniLocation.latitude%>"
+  />
+</div>
+
+<div>
+  <label>Longitude</label>
+  <input
+    type="text"
+    name="longitude"
+    id="longitude"
+    value="<%= uniLocation.longitude%>"
+  />
+</div>
+
+<div>
+  <label>Telefone</label>
+  <input
+    type="text"
+    name="num_Telefone"
+    id="num_Telefone"
+    value="<%= uniLocation.num_Telefone%>"
+  />
+</div>
+<div>
+  <label>Whatsapp</label>
+  <input
+    type="text"
+    name="num_Whats"
+    id="num_Whats"
+    value="<%= uniLocation.num_Whats%>"
+  />
+</div>
+
+<div>
+  <label>Email</label>
+  <input type="email" name="email" id="email" value="<%= uniLocation.email%>" />
+</div>
+
+<div>
+  <label>endereco</label>
+  <input
+    type="text"
+    name="endereco"
+    id="endereco"
+    value="<%= uniLocation.endereco%>"
+  />
+</div>
+
+<div>
+  <label>bairro</label>
+  <input
+    type="text"
+    name="bairro"
+    id="bairro"
+    value="<%= uniLocation.bairro%>"
+  />
+</div>
+
+<div>
+  <label>numero</label>
+  <input
+    type="number"
+    name="numero"
+    id="numero"
+    value="<%= uniLocation.numero%>"
+  />
+</div>
