@@ -3,7 +3,7 @@ const router = express.Router();
 const UniLocation = require("../model/UnidadeLocation");
 const Unidade = require("../model/Unidade");
 
-router.get("/", async (req, res) => {
+router.get("/", checkAuthenticated, async (req, res) => {
   try {
     const uniLocation = await UniLocation.find({})
       .limit(3)
@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
 });
 
 //Admin unidades - todas
-router.get("/allUnidadeLocations", async (req, res) => {
+router.get("/all", checkAuthenticated, async (req, res) => {
   const uniLocation = await UniLocation.find({});
 
   res.render("admin/unidadeLocations/allUnidadeLocations.ejs", {
@@ -29,24 +29,32 @@ router.get("/allUnidadeLocations", async (req, res) => {
 });
 
 //Show unidade by ID
-router.get("/unidadeLocation/:unidadeid/show", async (req, res) => {
-  try {
-    const uniLocation = await UniLocation.findById(req.params.unidadeid);
+router.get(
+  "/unidadeLocation/:unidadeid/show",
+  checkAuthenticated,
+  async (req, res) => {
+    try {
+      const uniLocation = await UniLocation.findById(
+        req.params.unidadeid
+      ).populate("unidade");
 
-    res.render("admin/unidadeLocations/show", {
-      uniLocation: uniLocation,
-      logado: true
-    });
-  } catch (error) {}
-});
+      res.render("admin/unidadeLocations/show", {
+        uniLocation: uniLocation,
+        logado: true
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 //Nova unidade
-router.get("/new", async (req, res) => {
+router.get("/new", checkAuthenticated, async (req, res) => {
   renderNewPage(res, new UniLocation());
 });
 
 // create unidade route
-router.post("/new/unidade", async (req, res) => {
+router.post("/new/unidade", checkAuthenticated, async (req, res) => {
   console.log(req.body);
   const uniLocation = new UniLocation({
     title: req.body.title,
@@ -63,10 +71,15 @@ router.post("/new/unidade", async (req, res) => {
   });
 
   try {
-    const newuniLocation = await uniLocation.save();
+    uniLocation.save(function() {
+      Unidade.findById(req.body.unidade)
+        .populate("unidades")
+        .exec();
+    });
+    //const newuniLocation = await uniLocation.save();
     res.redirect("/admin/unidadeLocations");
   } catch (error) {
-    //console.log(error);
+    console.log(error);
     renderNewPage(res, uniLocation, true, error);
   }
 });
@@ -74,7 +87,7 @@ router.post("/new/unidade", async (req, res) => {
 //Edit unidade route
 router.get(
   "/unidadeLocation/:id/edit",
-
+  checkAuthenticated,
   async (req, res) => {
     try {
       const uniLocation = await UniLocation.findById(req.params.id);
@@ -87,12 +100,12 @@ router.get(
 );
 
 //Update unidade route
-router.put("/edit/:id/update", async (req, res) => {
+router.put("/edit/:id/update", checkAuthenticated, async (req, res) => {
   let uniLocation;
   try {
     uniLocation = await UniLocation.findById(req.params.id);
     uniLocation.title = req.body.title;
-    uniLocation.apiKey = req.body.apiKey;
+    uniLocation.apiKey = process.env.GOOGLE_MAPS_API_KEY;
     uniLocation.latitude = req.body.latitude;
     uniLocation.longitude = req.body.longitude;
     uniLocation.num_Telefone = req.body.num_Telefone;
@@ -104,13 +117,15 @@ router.put("/edit/:id/update", async (req, res) => {
     uniLocation.unidade = req.body.unidade;
 
     await uniLocation.save();
-    res.redirect(`/admin/unidadeLocations/unidade/${uniLocation.id}/edit`);
+    res.redirect(
+      `/admin/unidadeLocations/unidadeLocation/${uniLocation.id}/edit`
+    );
   } catch (error) {
     console.log(error);
   }
 });
 
-router.delete("/remover/:id", async (req, res) => {
+router.delete("/remover/:id", checkAuthenticated, async (req, res) => {
   let uniLocation;
   try {
     uniLocation = await UniLocation.findById(req.params.id);
@@ -118,7 +133,7 @@ router.delete("/remover/:id", async (req, res) => {
     res.redirect("/admin/unidadeLocations/allunidadeLocations");
   } catch (error) {
     if (unidade != null) {
-      res.render("admin/unidades/show", {
+      res.render("admin/unidadeLocations/all", {
         unidade: unidade,
         errorMessage: "Could not remove evento"
       });

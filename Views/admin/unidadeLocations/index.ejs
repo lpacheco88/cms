@@ -3,12 +3,14 @@
 
   <% uniLocation.forEach(uni => { %>
   <p>
-    <a href="/admin/evento/evento/<%=uni.id%>"> <%= uni.title%></a>
+    <a href="/admin/unidadeLocations/unidadeLocation/<%=uni.id%>/show">
+      <%= uni.title%></a
+    >
   </p>
 
   <% }) %>
 
   <a href="/admin/unidadeLocations/new">New</a>
   <Br />
-  <a href="/admin/evento/alleventos">Todas localizacoes</a>
+  <a href="/admin/unidadeLocations/all">Todas localizacoes</a>
 </main>

@@ -18,10 +18,13 @@ const adminEventoRouter = require("./routes/adminEvento");
 const adminQuemSomosRouter = require("./routes/adminQuemSomos");
 const adminUnidades = require("./routes/adminUnidades");
 const adminUnidadeLocation = require("./routes/adminUnidadeLocation");
+const adminCategoria = require("./routes/adminCategoria");
+const adminProdutos = require("./routes/adminProduto");
 //Public routes
 const indexRouter = require("./routes/index");
 const eventoRouter = require("./routes/evento");
 const quemSomosRouter = require("./routes/quemSomos");
+const unidadesRouter = require("./routes/unidade");
 
 //App setting and usage
 app.set("view engine", "ejs");
@@ -51,11 +54,14 @@ db.once("open", () => {
 app.use("/", indexRouter);
 app.use("/eventos", eventoRouter);
 app.use("/quemsomos", quemSomosRouter);
+app.use("/unidades", unidadesRouter);
 //Admin area
 app.use("/admin", adminIndexRouter);
 app.use("/admin/evento", adminEventoRouter);
 app.use("/admin/quemsomos", adminQuemSomosRouter);
 app.use("/admin/unidades", adminUnidades);
 app.use("/admin/unidadeLocations", adminUnidadeLocation);
+app.use("/admin/categorias", adminCategoria);
+app.use("/admin/produtos", adminProdutos);
 
 app.listen(process.env.PORT || 3000);

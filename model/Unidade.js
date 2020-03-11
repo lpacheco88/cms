@@ -31,4 +31,4 @@ const unidadeSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model("CostumerData", unidadeSchema);
+module.exports = mongoose.model("Unidade", unidadeSchema);
