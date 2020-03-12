@@ -25,6 +25,7 @@ const indexRouter = require("./routes/index");
 const eventoRouter = require("./routes/evento");
 const quemSomosRouter = require("./routes/quemSomos");
 const unidadesRouter = require("./routes/unidade");
+const produtosRouter = require("./routes/produto");
 
 //App setting and usage
 app.set("view engine", "ejs");
@@ -55,6 +56,7 @@ app.use("/", indexRouter);
 app.use("/eventos", eventoRouter);
 app.use("/quemsomos", quemSomosRouter);
 app.use("/unidades", unidadesRouter);
+app.use("/produtos", produtosRouter);
 //Admin area
 app.use("/admin", adminIndexRouter);
 app.use("/admin/evento", adminEventoRouter);

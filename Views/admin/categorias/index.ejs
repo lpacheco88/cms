@@ -1,1 +1,16 @@
-<h1>catergorias index</h1>
+<main role="main" class="container">
+  <h5>Categorias index</h5>
+
+  <% categorias.forEach(categoria => { %>
+  <p>
+    <a href="/admin/categorias/categoria/<%=categoria.id%>/show">
+      <%= categoria.title%></a
+    >
+  </p>
+
+  <% }) %>
+
+  <a href="/admin/categorias/new">New</a>
+  <Br />
+  <a href="/admin/categorias/all">Todas Categorias</a>
+</main>

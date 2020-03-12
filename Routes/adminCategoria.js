@@ -53,7 +53,7 @@ router.post("/new/categoria", async (req, res) => {
 
   try {
     const newCategoria = await categoria.save();
-    res.redirect(`admin/categorias/categoria/${newCategoria.id}/show`);
+    res.redirect(`/admin/categorias/categoria/${newCategoria.id}/show`);
   } catch (error) {
     console.log(error);
     renderNewPage(res, categoria, true, error);
@@ -69,7 +69,7 @@ router.put("/:id", async (req, res) => {
     categoria.description = req.body.description;
 
     await categoria.save();
-    res.redirect(`admin/categorias/categoria/${categoria.id}/show`);
+    res.redirect(`/admin/categorias/categoria/${categoria.id}/show`);
   } catch (error) {
     console.log(error);
     if (book != null) {
@@ -94,7 +94,7 @@ router.get(
   }
 );
 
-router.put("/categoria/:id/update", checkAuthenticated, async (req, res) => {
+router.put("/categoria/:id/update", async (req, res) => {
   let categoria;
   try {
     categoria = await Categoria.findById(req.params.id);
@@ -102,20 +102,18 @@ router.put("/categoria/:id/update", checkAuthenticated, async (req, res) => {
     categoria.description = req.body.description;
 
     await categoria.save();
-    res.redirect(
-      `/admin/unidadeLocations/unidadeLocation/${categoria.id}/edit`
-    );
+    res.redirect(`/admin/categorias/categoria/${categoria.id}/edit`);
   } catch (error) {
     console.log(error);
   }
 });
 
-router.delete("/remover/:id", checkAuthenticated, async (req, res) => {
+router.delete("/remover/:id", async (req, res) => {
   let categoria;
   try {
     categoria = await Categoria.findById(req.params.id);
     await categoria.remove();
-    res.redirect("/admin/categorias/allCategorias");
+    res.redirect("/admin/categorias");
   } catch (error) {
     if (categoria != null) {
       res.render("admin/categorias/all", {

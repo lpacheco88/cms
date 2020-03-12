@@ -1,1 +1,16 @@
-<h1>catergorias show</h1>
+<div>
+  <p><%=categorias.title%></p>
+</div>
+
+<div>
+  <p><%=categorias.description%></p>
+</div>
+
+<div>
+  <a class="btn btn-primary" href="/admin/categorias">Voltar</a>
+  <a
+    class="btn btn-warning"
+    href="/admin/categorias/categoria/<%=categorias.id%>/edit"
+    >Editar</a
+  >
+</div>

@@ -1,0 +1,46 @@
+<div>
+  <label>Titulo</label>
+  <input type="text" name="title" value="<%= produtos.title %>" />
+</div>
+
+<div>
+  <label>Descrição</label>
+  <input type="text" name="description" value="<%= produtos.description %>" />
+</div>
+
+<div>
+  <label>Unidade</label>
+  <select name="unidade">
+    <% unidades.forEach(unidade =>{ %> <% if (unidade.id === produtos.unidades){
+    %>
+    <option
+      selected
+      label="<%= unidade.title %>"
+      value="<%=unidade.id%>"
+    ></option>
+    <% }else{%>
+    <option label="<%= unidade.title %>" value="<%=unidade.id%>"></option>
+    <%}%> <%})%>
+  </select>
+</div>
+
+<div>
+  <label>Categoria</label>
+  <select name="categoria">
+    <% categorias.forEach(categoria =>{ %> <% if (categoria.id ===
+    produtos.categorias){ %>
+    <option
+      selected
+      label="<%= categoria.name %>"
+      value="<%=categoria.id%>"
+    ></option>
+    <% }else{%>
+    <option label="<%= categoria.title %>" value="<%=categoria.id%>"></option>
+    <%}%> <%})%>
+  </select>
+</div>
+
+<div>
+  <label>Imagem</label>
+  <input type="file" name="produtoImagem" class="filepond" />
+</div>

@@ -1,0 +1,38 @@
+<div>
+  <label>titulo: <%=produtos.title%></label>
+</div>
+
+<div>
+  <label>titulo: <%=produtos.description%></label>
+</div>
+
+<div>
+  <label>Unidade</label>
+  <p>
+    <a href="/admin/unidades/unidade/<%=produtos.unidade.id%>/show"
+      ><%=produtos.unidade.title%></a
+    >
+  </p>
+</div>
+
+<div>
+  <label>Categoria</label>
+  <p>
+    <a href="/admin/categorias/categoria/<%=produtos.categoria.id%>/show"
+      ><%=produtos.categoria.title%></a
+    >
+  </p>
+</div>
+
+<div>
+  <img height="150" width="100" src="<%= produtos.produtoImagePath%>" />
+</div>
+
+<div>
+  <a class="btn btn-primary" href="/admin/categorias">Voltar</a>
+  <a
+    class="btn btn-warning"
+    href="/admin/produtos/produto/<%=produtos.id%>/edit"
+    >Editar</a
+  >
+</div>

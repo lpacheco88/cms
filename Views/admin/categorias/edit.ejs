@@ -1,1 +1,10 @@
-<h1>catergorias edit</h1>
+<h2 class="page-header">Edit book</h2>
+
+<form
+  action="/admin/categorias/categoria/<%= categoria.id%>/update?_method=PUT"
+  method="POST"
+>
+  <%- include('_form_fields') %>
+  <a href="/admin/categorias/all">Cancel</a>
+  <button type="submit">Update</button>
+</form>

@@ -1,0 +1,18 @@
+<main role="main" class="container">
+  <h5>Produtos index</h5>
+
+  <% produtos.forEach(produto => { %>
+  <p>
+    <a href="/admin/produtos/produto/<%=produto.id%>/show">
+      <%= produto.title%></a
+    >
+  </p>
+
+  <% }) %>
+
+  <a href="#"></a>
+  <a href="#">Edit</a>
+  <a href="/admin/produtos/new">New</a>
+  <a href="#">show</a>
+  <a href="/admin/produtos/all">Todos produtos</a>
+</main>

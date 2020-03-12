@@ -1,0 +1,16 @@
+<h5>index prd</h5>
+<main role="main" class="container">
+  <h5>Produtos index</h5>
+
+  <% unidades.forEach(unidade => { %>
+  <div>
+    <a
+      href="#"
+      onclick="getCategoria('<%= unidade.id%>')"
+      name="unidade"
+      id="myButton"
+      ><%= unidade.title%></a
+    >
+  </div>
+  <% }) %>
+</main>

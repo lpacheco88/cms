@@ -1,0 +1,31 @@
+<main role="main" class="container">
+  <h5>Todas as categorias</h5>
+  <div class="row">
+    <% produtos.forEach(produto => { %>
+    <div class="col-4">
+      <p>
+        <a href="/admin/categorias/categoria/<%=produto.categoria.id%>/show">
+          <%= produto.title%></a
+        >
+      </p>
+    </div>
+    <div class="col-4">
+      <p>
+        <a
+          class="btn btn-warning"
+          href="/admin/produtos/produto/<%=produto.id%>/edit"
+        >
+          Editar produto</a
+        >
+      </p>
+    </div>
+    <div class="col-4">
+      <p>
+        <%- include('../../partials/_deleteForm',
+        {url:`/admin/produtos/remover/${produto.id}`})%>
+      </p>
+    </div>
+
+    <% }) %>
+  </div>
+</main>

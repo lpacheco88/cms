@@ -1,1 +1,31 @@
-<h1>catergorias all</h1>
+<main role="main" class="container">
+  <h5>Todas as categorias</h5>
+  <div class="row">
+    <% categorias.forEach(categoria => { %>
+    <div class="col-4">
+      <p>
+        <a href="/admin/categorias/categoria/<%=categoria.id%>/show">
+          <%= categoria.title%></a
+        >
+      </p>
+    </div>
+    <div class="col-4">
+      <p>
+        <a
+          class="btn btn-warning"
+          href="/admin/categorias/categoria/<%=categoria.id%>/edit"
+        >
+          Editar unidade location</a
+        >
+      </p>
+    </div>
+    <div class="col-4">
+      <p>
+        <%- include('../../partials/_deleteForm',
+        {url:`/admin/categorias/remover/${categoria.id}`})%>
+      </p>
+    </div>
+
+    <% }) %>
+  </div>
+</main>
